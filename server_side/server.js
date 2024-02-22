@@ -8,7 +8,7 @@ const fs = require('fs');
 const path = require('path');
 
 const pdf = require('pdf-parse');
-const play = require('play-sound')(opts = {});
+
 
 require('dotenv').config();
 
