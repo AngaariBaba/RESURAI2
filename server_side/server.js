@@ -80,7 +80,7 @@ app.post('/upload', upload.single('pdfFile'), async (req, res) => {
 async function questions(pdf_content)
 {
   const completion = await client.chat.completions.create({
-    messages: [{ role: "system", content: `Extract the technical concepts like projects,programming languages and internship or industrial experience mentioned in this give text after the arrow -> "${pdf_content}" , Now generate 10 technical interview questions based on that extracted data. The response should be in this JSON format "{ questions : ['question 1','question 2','question 3'] }"` }],
+    messages: [{ role: "system", content: `Extract the technical concepts like projects,programming languages and internship or industrial experience mentioned in this give text after the arrow -> "${pdf_content}" , Make sure to only ask questions from text available,Now generate 10 technical interview questions based on that extracted data. The response should be in this JSON format "{ questions : ['question 1','question 2','question 3'] }"` }],
     model: "gpt-3.5-turbo",
   });
 
