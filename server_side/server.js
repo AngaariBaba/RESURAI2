@@ -29,6 +29,25 @@ app.use(cors());
 var main_data = "";
 
 // Handle PDF file upload and perform PDF reading operation
+app.post("/eval",async (req,res)=>{
+    const ans = req.body.ans;
+    const que = req.body.que;
+    console.log(req.body);
+
+    const completion = await client.chat.completions.create({
+        messages: [{
+            role: "system",
+            content: `You are my interviewer,Help me practice for my interview, Imagine a scenario you are taking my interview and you ask this question "${que},to which i respond "${ans},What would your comment on my solution be and how can i improve it, please always include "Your answer can be improved to interviewer by ...." to prompt in a JSON format like {"response":"response here"}""`
+        }],
+        model: "gpt-3.5-turbo",
+    });
+
+    const question = await  JSON.parse(completion.choices[0].message.content);
+    console.log(question);
+    res.json(question);
+
+})
+
 app.post('/upload', upload.single('pdfFile'), async (req, res) => {
   try {
     if (!req.file) {
